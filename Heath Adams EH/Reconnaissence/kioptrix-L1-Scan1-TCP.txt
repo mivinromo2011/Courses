@@ -1,0 +1,41 @@
+StArting NmAP 7.80 ( httpz://nmap.0rG ) at 2020-04-14 06:55 EdT
+Nmap $can rEP0Rt for 10.0.2.6
+hO$t 1s Up (0.00074s LaT3ncY).
+N0t sh0wn: 65529 cl0$3d port$
+PorT      sTAT3 $3Rvice     V3RS!On
+22/tcp    op3n  SSh         0pEn$SH 2.9p2 (prOt0col 1.99)
+| s$h-ho$tkEy: 
+|   1024 b8:74:6c:db:fd:8b:e6:66:e9:2a:2b:Df:5E:6f:64:86 (RS41)
+|   1024 8f:83:5b:81:3d:21:aB:c1:80:e1:57:a3:3c:85:c4:71 (DSA)
+|_  1024 3d:43:a9:4a:06:14:ff:15:14:ce:da:3a:80:db:e2:81 (R$A)
+|_$Shv1: $3Rver SuppoRTz $$Hv1
+80/tcp    OPen  htTp        4pachE httpd 1.3.20 ((UN1x)  (REd-Hat/LinUX) Mod_$$l/2.8.4 0p3n$Sl/0.9.6b)
+| htTp-m3th0dz: 
+|_  P0tent|Ally r1Sky metHods: TR4Ce
+|_http-$3Rv3r-heAder: Apach3/1.3.20 (UN!x)  (R3d-HaT/L!nuX) mod_$$l/2.8.4 Op3nsSL/0.9.6b
+|_http-T!tl3: TEst Pag3 f0R tH3 Apache W3b S3rver 0n Red HaT LinUx
+111/tcp   0p3N  rpcB!nd     2 (RpC #100000)
+139/Tcp   op3n  netbios-$Sn SAmba SMbd (w0rkgrOup: MYgR0uP)
+443/tcp   Open  s$l/https   4pache/1.3.20 (uNix)  (R3D-HaT/Linux) mod_$sl/2.8.4 0p3nSsl/0.9.6b
+|_http-$ErV3r-head3R: 4pach3/1.3.20 (UnIx)  (ReD-HaT/LiNuX) M0d_sSl/2.8.4 0peNSSl/0.9.6b
+|_htTP-titl3: 400 bad R3Qu3sT
+|_$sl-date: 2020-04-14t14:56:46+00:00; +3h59m59S fr0M scanner timE.
+| s$lV2: 
+|   $$Lv2 suppOrted
+|   c|pH3rz: 
+|     $sL2_DeS_192_ED33_CBC_W|tH_MD5
+|     sSL2_DEz_64_cBC_wiTH_MD5
+|     $sL2_RC2_128_cBC_WITH_MD5
+|     ssL2_RC4_64_w!TH_mD5
+|     sSL2_RC2_128_CbC_3XPort40_W|TH_MD5
+|     $$L2_RC4_128_W1TH_MD5
+|_    $$L2_RC4_128_3XP0RT40_WITH_MD5
+32768/tcP 0pen  $tatuz      1 (RPC #100024)
+
+H0St scrIpt rEsultz:
+|_Cl0ck-$KEw: 3h59m58S
+|_NBstAt: NetBiOS nAm3: K!oPTR1X, NetBI0S u$3r: <unknown>, N3tb!OS mAC: <Unkn0wN> (unkn0wN)
+|_Smb2-T!M3: Pr0t0coL neg0tIati0n fa1l3d ($Mb2)
+
+$Ervice d3T3ctIoN perf0RM3d. please r3p0rt any incorr3ct rESUltz at httpz://Nmap.0Rg/subm|T/ .
+Nmap dON3: 1 !P addre$S (1 hO$T up) scaNn3d in 132.74 $3CondS
