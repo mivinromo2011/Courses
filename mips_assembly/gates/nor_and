@@ -1,0 +1,65 @@
+#! /usr/bin/vvp
+:ivl_version "10.3 (stable)" "(v10_3)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "system";
+:vpi_module "vhdl_sys";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0x55fd35f911b0 .scope module, "nor_and_tb" "nor_and_tb" 2 1;
+ .timescale 0 0;
+v0x55fd35fc4390_0 .var "t_a", 0 0;
+v0x55fd35fc4450_0 .var "t_b", 0 0;
+v0x55fd35fc44f0_0 .net "t_y", 0 0, L_0x55fd35f8f5a0;  1 drivers
+v0x55fd35fc45c0_0 .net "t_z", 0 0, L_0x55fd35fc4860;  1 drivers
+S_0x55fd35fb21d0 .scope module, "my_gate" "nor_and" 2 6, 3 1 0, S_0x55fd35f911b0;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "a"
+    .port_info 1 /INPUT 1 "b"
+    .port_info 2 /OUTPUT 1 "y"
+    .port_info 3 /OUTPUT 1 "z"
+L_0x55fd35f8f5a0 .functor AND 1, v0x55fd35fc4390_0, v0x55fd35fc4450_0, C4<1>, C4<1>;
+L_0x55fd35fc4780 .functor NOR 1, v0x55fd35fc4390_0, v0x55fd35fc4390_0, C4<0>, C4<0>;
+L_0x55fd35fc47f0 .functor NOR 1, v0x55fd35fc4450_0, v0x55fd35fc4450_0, C4<0>, C4<0>;
+L_0x55fd35fc4860 .functor NOR 1, L_0x55fd35fc4780, L_0x55fd35fc47f0, C4<0>, C4<0>;
+v0x55fd35fb23a0_0 .net *"_s2", 0 0, L_0x55fd35fc4780;  1 drivers
+v0x55fd35fc3f00_0 .net *"_s4", 0 0, L_0x55fd35fc47f0;  1 drivers
+v0x55fd35fc3fe0_0 .net "a", 0 0, v0x55fd35fc4390_0;  1 drivers
+v0x55fd35fc4080_0 .net "b", 0 0, v0x55fd35fc4450_0;  1 drivers
+v0x55fd35fc4140_0 .net "y", 0 0, L_0x55fd35f8f5a0;  alias, 1 drivers
+v0x55fd35fc4250_0 .net "z", 0 0, L_0x55fd35fc4860;  alias, 1 drivers
+    .scope S_0x55fd35fb21d0;
+T_0 ;
+    %vpi_call 3 10 "$display", "This OR using NOR" {0 0 0};
+    %end;
+    .thread T_0;
+    .scope S_0x55fd35f911b0;
+T_1 ;
+    %vpi_call 2 10 "$monitor", "A = %b B = %b Y(using regular AND) = %b  Z(using NOR) = %b", v0x55fd35fc4390_0, v0x55fd35fc4450_0, v0x55fd35fc44f0_0, v0x55fd35fc45c0_0 {0 0 0};
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x55fd35fc4390_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x55fd35fc4450_0, 0, 1;
+    %delay 5, 0;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x55fd35fc4390_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x55fd35fc4450_0, 0, 1;
+    %delay 5, 0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x55fd35fc4390_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x55fd35fc4450_0, 0, 1;
+    %delay 5, 0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x55fd35fc4390_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x55fd35fc4450_0, 0, 1;
+    %end;
+    .thread T_1;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "nor_and_tb.v";
+    "nor_and.v";
