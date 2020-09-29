@@ -8,7 +8,7 @@ enc my_enc(t_a,t_b,t_c,t_d,t_y0,t_y1);
 
 initial
 	begin
-		$monitor("I0 = %b I1 = %b I2 = %b I3 = %b Y0 = %b Y1 = %b",t_b,t_a,t_d,t_c,t_y0,t_y1);
+		$monitor("I3 = %b | I2 = %b | I1 = %b | I0 = %b ||| Y0 = %b | Y1 = %b",t_b,t_a,t_d,t_c,t_y0,t_y1);
 		
         t_d=1'b1;
         t_a=1'b0;
