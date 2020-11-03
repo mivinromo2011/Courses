@@ -56,62 +56,22 @@ module eight_bit_register(A,clk,q0,q1,q2,q3,q4,q5,q6,q7);
     always @(posedge clk)
         if(clk)
             begin
-                if (A[0]) begin
-                    s0=A[0];
-                    r0=1'b0;
-                end
-                r0=A[0];
-                s0=1'b0;
-                
-                if (A[1]) begin
-                    s1=A[1];
-                    r1=1'b0;
-                end
-                r1=A[1];
-                s1=1'b0;                
-                
-                if (A[2]) begin
-                    s2=A[2];
-                    r2=1'b0;
-                end
-                r2=A[2];
-                s2=1'b0;
-                
-                if (A[3]) begin
-                    s3=A[3];
-                    r3=1'b0;
-                end
-                r3=A[3];
-                s3=1'b0; 
-
-                if (A[4]) begin
-                    s4=A[4];
-                    r4=1'b0;
-                end
-                r4=A[4];
-                s4=1'b0;                 
-               
-                if (A[5]) begin
-                    s5=A[5];
-                    r5=1'b0;
-                end
-                r5=A[5];
-                s5=1'b0; 
-                
-                if (A[6]) begin
-                    s6=A[6];
-                    r6=1'b0;
-                end
-                r6=A[6];
-                s6=1'b0; 
-                
-                if (A[7]) begin
-                    s7=A[7];
-                    r7=1'b0;
-                end
-                r7=A[7];
-                s7=1'b0; 
-
+                s0=A[0];
+                r0=~s0;
+                s1=A[1];
+                r1=~s1;
+                s2=A[2];
+                r2=~s2;
+                s3=A[3];
+                r3=~s3;
+                s4=A[4];
+                r4=~s4;
+                s5=A[5];
+                r5=~s5;
+                s6=A[6];
+                r6=~s6;
+                s7=A[7];
+                r7=~s7;
             end
     endmodule
 
