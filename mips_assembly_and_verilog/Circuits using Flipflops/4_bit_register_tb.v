@@ -5,7 +5,7 @@ reg clk;
 four_bit_register memory(A,clk,q0,q1,q2,q3);
 initial
     begin
-        $monitor("%b | %b | %b | %b | %b | %b |", A,q0,q1,q2,q3,clk);
+        $monitor("%b | %b | %b | %b | %b |", A,q0,q1,q2,q3);
         clk=1'b1;
         A=4'b1101;
         
