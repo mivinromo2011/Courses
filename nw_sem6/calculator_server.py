@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-
+import re
 import socket
 
 HOST = '127.0.0.1'  # Standard loopback interface address (localhost)
@@ -17,18 +17,20 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             if not data:
                 break
             op=data.decode()
-            a=int(op[0])
-            b=int(op[2])
-            if(op[1]=='+'):
+            N=re.split('[+/*-]{1}',op)
+            O=op[int(re.search('[+*/-]{1}',op).start())]
+            a=int(N[0])
+            b=int(N[1])            
+            if(O=='+'):
                 res=str(a+b)
                 conn.send(res.encode())
-            elif(op[1]=='-'):
+            elif(O=='-'):
                 res=str(a-b)
                 conn.send(res.encode())
-            elif(op[1]=='*'):
+            elif(O=='*'):
                 res=str(a*b)
                 conn.send(res.encode())
-            elif(op[1]=='/'):
+            elif(O=='/'):
                 res=str(a/b)
                 conn.send(res.encode())
             else:
