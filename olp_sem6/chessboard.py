@@ -1,5 +1,3 @@
-#3D Chess Board written in Visual Python
-#Author: Shaun Press
 from visual import *
 
 class Board:
