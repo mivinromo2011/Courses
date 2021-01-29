@@ -1,9 +1,7 @@
 from visual import *
 
 class Board:
-    'Class for chess board and pieces'
     def __init__(self):
-        'Builds board and places pieces'
         self.squares = []
         for i in range(64):
             self.squares.append(None)
@@ -15,8 +13,6 @@ class Board:
         self.squares[y*8+x] = piece
 
     def movePiece(self,fx,fy,tx,ty):
-        'Takes pice from square fx,fy and moves to tx,ty'
-        'Checks if piece exists on square'
         piece = self.squares[fy*8+fx]
         if piece == None:
             print 'eh?'
@@ -29,9 +25,6 @@ class Board:
         self.squares[fy*8+fx] = None
 
     def parseString(self,pMove):
-        'Accepts input in long algebraic ie e2e4'
-        'Columns are a-h, rows are 1-8'
-        'Bottom left square is a1 top right h9 etc' 
         fx = 7-(ord(pMove[0])-ord('a'))
         fy = ord(pMove[1])-ord('1')
         tx = 7-(ord(pMove[2])-ord('a'))
@@ -70,7 +63,6 @@ class Board:
 
         
 class Piece:
-    'A parent class for all the piece subclasses'
     def __init__(self):
         self.base = None
 
@@ -78,7 +70,6 @@ class Piece:
         self.base.pos = newPos
 
     def setvisible(self,state):
-        'Makes more complex shapes invisible'
         if hasattr(self.base,'objects'):
             for obj in self.base.objects:
                 obj.visible = state
