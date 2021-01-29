@@ -1,51 +1,67 @@
 import java.util.*;
+import java.io.*;
 
 class compiler {
   public static void main(String[] args) {
-    Scanner input = new Scanner(System.in);
-    System.out.println("Enter the string:");
-    String str = input.nextLine();
-    int n = str.length();
-    int[][] edges = {
-      { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-      { 2, 4, 4, 5, 7, 9, 0, 12, 13 },
-      { 4, 3, 4, 0, 4, 0, 0, 0, 0 },
-      { 4, 4, 4, 0, 4, 0, 0, 0, 0 },
-      { 4, 4, 4, 0, 4, 0, 0, 0, 0 },
-      { 0, 0, 0, 0, 6, 0, 0, 0, 0 },
-      { 0, 0, 0, 0, 6, 0, 0, 0, 0 },
-      { 0, 0, 0, 8, 7, 0, 0, 0, 0 },
-      { 0, 0, 0, 0, 8, 0, 0, 0, 0 },
-      { 0, 0, 0, 0, 0, 10, 0, 0, 0 },
-      { 10, 10, 10, 0, 0, 0, 11, 0, 0 },
-      { 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-      { 0, 0, 0, 0, 0, 0, 0, 12, 0 },
-      { 0, 0, 0, 0, 0, 0, 0, 0, 0 } };
-    int cur = 1;
-    System.out.println("States : ");
-    System.out.print(cur + " => ");
-    for (int i=0;i<n;i++) {
-      char ch = str.charAt(i);
-      cur = edges[cur][char_edgeMap(ch)];
-      if (cur == 0) {
-        System.out.println("Dead state reached");
-        break;
-      } else {
-        if (i == n - 1)
-          System.out.println("("+cur+")");
-        else
-          System.out.print(cur + " => ");
+    Scanner ip_str;
+    try{
+      ip_str=new Scanner(new File("C:\\Users\\mivin\\Desktop\\tc.csv"));
+      ip_str.useDelimiter(",");
+      while (ip_str.hasNext()){
+        String ip_s = ip_str.next();
+        System.out.println("String is : \""+ip_s"\"");
+        int len = ip_s.length();
+        int pos = 1;
+        String[][] t_matrix = new String[14][9];
+        BufferedReader rbuf;
+        FileReader tfile = new FileReader("C:\\Users\\mivin\\Desktop\\tt.csv");
+        rbuf=new BufferedReader(tfile);
+        String line;
+        while((line=rbuf.readline())!=null){
+          String[] str = line.split(",");
+          String[] states=new String[11];
+          for(int x=0;x<9;x++){
+            states[x]=str[x]
+          }
+        }
+        int s=0;
+        int y=0;
+        int r=0;
+        while(y<9){
+          t_matrix[r][y]=states[s];
+          y++;
+          s++;
+        }
+        r++;
       }
+      rbuf.close();
+      System.out.println("States : ");
+      System.out.print(pos + " --> ");   
+      for (int i=0;i<n;i++) {
+        char ch = str.charAt(i);
+        pos = t_matrix[pos][matrix_map(ch)];
+        if (pos == 0) {
+          System.out.println("Dead state!");
+          break;
+        } 
+        else {
+          if (i == n - 1)
+          System.out.println("("+pos+")");
+          else
+          System.out.print(pos + " --> ");
+        }        
+      }
+      if (pos>1){
+        System.out.println("String accepted");
+      }
+      else{
+        System.out.println("String rejected");
+      }
+      System.out.println("\n");
     }
-    if (cur>1){
-      System.out.println("String accepted");
-    }
-    else
-      System.out.println("String rejected");
-    input.close();
   }
 
-  static int char_edgeMap(char ch) {
+  static int matrix_map(char ch) {
     if (ch == 'i')
       return 0;
     if (ch == 'f')
