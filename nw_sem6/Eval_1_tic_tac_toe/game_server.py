@@ -97,7 +97,7 @@ def make_move(i,j,B,p):
 def print_board(B):
 	for i in range(3):
 		for j in range(3):
-			print(B[i][j]+" | ",end="\t")
+			print(B[i][j]+" |",end=" ")
 		print("\n")
 
 B=[["#"]*3]*3
@@ -116,34 +116,35 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     	print("Connection established by another player")
     	msg="You are connected let us begin"
     	conn.sendall(msg.encode())
-    	while(check_gameover(B)>0):
+    	c=check_gameover(B)
+    	while(True):
         	conn.sendall(b'Enter the move: ')
         	data = conn.recv(1024)
-        	i=int(data.decode())
+        	i=int(data.decode()) #Getting Player input1
         	data = conn.recv(1024)
-        	j=int(data.decode())
-        	if check_filled(B[i][j]):
+        	j=int(data.decode()) #getting Player input2
+        	if check_filled(B[i][j]): #Checking whether move is valid
         		msg="Failure"
         		conn.sendall(msg.encode())
         		continue
         	else:
         		make_move(i,j,B,1)
-        		msg="Success"
+        		msg="Success" #Successfully completed a move
         		conn.sendall(msg.encode())
         		msg=print_board(B)
-        		conn.sendall(msg.encode())
-        		if (check_win(B)=="p1"):
+        		conn.sendall(msg.encode()) #Sending board view to the player
+        		if (check_win(B)=="p1"): #Winner or Looser
         			msg="You Won!"
         			conn.sendall(msg.encode())
         		elif (check_win(B)=="p2"):
         			msg="You Lost! I won"
         			conn.sendall(msg.encode())
-        		else:
+        		else: #make server move
         			pc_move=True
         			while pc_move:
         				i=random.choice(move_list)
         				j=random.choice(move_list)
-        				if check_filled(B[i][j]):
+        				if check_filled(B[i][j]): #checking for valid move
         					continue
         				else:
         					make_move(i,j,B,2)
@@ -151,4 +152,4 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         					conn.sendall(msg.encode())
         			msg="Continue"
         			conn.sendall(msg.encode())
-
+        	c=check_gameover(B)
