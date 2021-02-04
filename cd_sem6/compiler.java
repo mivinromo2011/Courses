@@ -35,7 +35,7 @@ class compiler {
         }
         
         rbuf.close();
-        System.out.println("States : ");
+        System.out.println("Transitions : ");
         System.out.print(pos + " --> ");   
         for (int i=0;i<len;i++) {
           char ch = ip_s.charAt(i);
