@@ -13,17 +13,29 @@ public class maximalMunch {
             {  
                 String str = ip.next();
                 System.out.println("For string \""+str+"\"");
+                Stack<String> Index_Stack = new Stack<String>();
                 Stack<String> Pro_Stack = new Stack<String>();
                 Stack<String> Lexeme = new Stack<String>();
                 Pro_Stack.push("Bad"); 
+                Index_Stack.push("Bad");
                 int n = str.length();
                 int cur_st = 1;
+                int r=13,c=13;
+                int ip_pos=0;
+                Boolean failed[][] = new Boolean[r][c];
+                for (int x=0;i<r ;i++ ) {
+                  for (int y=0;y<c ;y++ ) {
+                    failed[x][y]=false;
+                  }
+                  
+                }
                 String[][] Trans_Matrix = new String[13][12];
 		            int i=0,j=0;
 		            BufferedReader bfr;
 		            FileReader file = new FileReader("C:\\Users\\mivin\\Desktop\\tt.csv");
 		            bfr = new BufferedReader(file);
 		            String line;
+                int ptr=0;
                 while((line=bfr.readLine())!=null) {
                   String[] a = line.split(",");
                   String[] s_arr = new String[11];
@@ -41,12 +53,20 @@ public class maximalMunch {
                 }
                 bfr.close();
                 System.out.print("State Transition:"+cur_st + "=>");
-                for (int l=0;l<n;l++) {
+                for (int l=ptr;l<n;l++) {
                     char ch = str.charAt(l);
                     cur_st = Integer.parseInt(Trans_Matrix[cur_st][get_edges(ch)]);
                     Lexeme.push(String.valueOf(ch));
-                    if(Check_FS(cur_st)) Pro_Stack.clear();
+                    if(failed[cur_st][ip_pos]){
+                      System.out.print("(Final State:" + cur_st + ")");
+                    }
+                    if(Check_FS(cur_st)){
+                      Pro_Stack.clear();
+                      Index_Stack.clear();
+                    }
+
                     Pro_Stack.push(String.valueOf(cur_st));
+                    Index_Stack.push(String.valueOf(ip_pos));
                     if (cur_st == 0) {
                       System.out.println("Dead state: 0");
                       break;
@@ -61,6 +81,10 @@ public class maximalMunch {
                   while(!Check_FS(cur_st)){
                     if(Pro_Stack.peek()=="bad") { fl=true; break;}
                     cur_st=Integer.parseInt(Pro_Stack.pop());
+                    failed[cur_st][ip_pos]=true;
+                    ptr=cur_st;
+                    if(Check_FS(cur_st))
+                      break;
                     Lexeme.pop();
                   }
                   if(fl||!Check_FS(cur_st)){
