@@ -1,114 +1,132 @@
-import java.io.*;
+// V.V.Mithun Rosinth
+// CB.EN.U4CSE18439
 import java.util.*;
+import java.io.*;
 
-public class maximalMunch implements Scanner{
-    /**
-    Variables:
-		*Current-state
-		*Last final state
-		*Current Input position
-		*Last final input position
-		*Begin-token position
-	Methods:
-		*Next token
-		*next char
-     */
-	int curState;
-	int curInputPos;
-
-	int lastFinalState;
-	int lastFinalInputPos;
-
-	DFA dfa;
-	String inp;
-	String lexeme;
-	Stack< int[]> stack;
-	boolean[][] failed;
-	char curInputChar;
-	
-	public maximalMunch(String input, DFA dfa) {
-        this.inp = input;
-		this.stack = new Stack<>();
-		this.dfa = dfa;
-		this.failed = new boolean[this.dfa.getNumberOfStates()][input.length()];
-		initializeScanner();
+public class maximalMunch {
+    public static void main(String[] args) {
+        Scanner ip;
+        try {
+            ip = new Scanner(new File("C:\\Users\\mivin\\Desktop\\tc.csv"));
+            ip.useDelimiter(",");
+            while (ip.hasNext())    
+            {  
+                String str = ip.next();
+                System.out.println("For string \""+str+"\"");
+                Stack<String> Pro_Stack = new Stack<String>();
+                Stack<String> Lexeme = new Stack<String>();
+                Pro_Stack.push("Bad"); 
+                int n = str.length();
+                int cur_st = 1;
+                String[][] Trans_Matrix = new String[13][12];
+		            int i=0,j=0;
+		            BufferedReader bfr;
+		            FileReader file = new FileReader("C:\\Users\\mivin\\Desktop\\tt.csv");
+		            bfr = new BufferedReader(file);
+		            String line;
+                while((line=bfr.readLine())!=null) {
+                  String[] a = line.split(",");
+                  String[] s_arr = new String[11];
+                  for(int m=0;m<12;m++) {
+                    s_arr[m] = a[m]; 
+                  }
+                  int k = 0;
+                  j = 0;
+                  while(j<12) {
+                    Trans_Matrix[i][j] = s_arr[k];
+                    j++;
+                    k++;
+                  }
+                  i++;
+                }
+                bfr.close();
+                System.out.print("State Transition:"+cur_st + "=>");
+                for (int l=0;l<n;l++) {
+                    char ch = str.charAt(l);
+                    cur_st = Integer.parseInt(Trans_Matrix[cur_st][get_edges(ch)]);
+                    Lexeme.push(String.valueOf(ch));
+                    if(Check_FS(cur_st)) Pro_Stack.clear();
+                    Pro_Stack.push(String.valueOf(cur_st));
+                    if (cur_st == 0) {
+                      System.out.println("Dead state: 0");
+                      break;
+                    } else {
+                      if (l == n - 1)
+                        System.out.println("(Final State:"+cur_st+")");
+                      else
+                        System.out.print(cur_st + "=>");
+                    }
+                  }
+                  Boolean fl=false;
+                  while(!Check_FS(cur_st)){
+                    if(Pro_Stack.peek()=="bad") { fl=true; break;}
+                    cur_st=Integer.parseInt(Pro_Stack.pop());
+                    Lexeme.pop();
+                  }
+                  if(fl||!Check_FS(cur_st)){
+                      System.out.println("Invalid String");
+                  }else{
+                    System.out.println("The string is valid till:"+cur_st+" State.");
+                    System.out.println(Lexeme.elements());
+                    System.out.println("ID:"+ffst(cur_st));
+                  }
+                  System.out.println("\n");
+            }   
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
     }
-
-	private void initializeScanner(){
-		curInputPos = -1;
-		for(int i = 0; i< failed.length; i++){
-			for(int j = 0; j<failed[i].length; j++){
-				failed[i][j] = false;
-			}
-		}
-	}
-	
-	public boolean reachedEOS(){
-        return this.curInputPos == this.inp.length()-1;
-	}
-	
-	public String nextToken(){
-		this.curState = 1;
-		this.lexeme = "";
-		this.stack.clear();
-		this.stack.push(new int[] {-10,-10});
-		while((this.curState != -1) && (!reachedEOS())){
-			this.curInputPos +=1;
-			nextChar();
-			//this.curInputPos +=1;
-			lexeme = lexeme + curInputChar;
-			if(failed[curState-1][curInputPos]){
-				break;
-			}
-			if(this.dfa.tokenTable.containsKey(this.curState)){
-                this.stack.clear();
-			}
-			this.stack.push(new int[] {curState,curInputPos});
-			int cat = this.dfa.charCat.get(String.valueOf(this.curInputChar));
-			this.curState = this.dfa.getTransition(this.curState-1, cat);
-		}
-
-		//Clean up final state and update the table
-		while(!this.dfa.tokenTable.containsKey(this.curState) && curState != -10){
-			if(this.curState == -1){
-				this.failed[failed.length-1][curInputPos] = true;
-			}
-			else{
-				this.failed[curState-1][curInputPos] = true;
-			}
-
-			int[] temp = this.stack.pop();
-			this.curState = temp[0];
-			this.curInputPos = temp[1];
-
-			//truncate lexeme
-			if(this.lexeme.length()>1){
-				this.lexeme= this.lexeme.substring(0,lexeme.length()-1);
-			}
-			rollback();
-		}
-
-		if(this.dfa.tokenTable.containsKey(this.curState)){
-            return this.dfa.getToken(this.curState);
+    static Boolean Check_FS(int a){
+        if(a==2||a==3||a==4||a==5||a==6||a==7||a==8||a==9||a==11||a==13||a==12) return true;
+        else return false;
+    }
+    static int get_edges(char ch) {
+        if (ch == 'i')
+          return 0;
+        if (ch == 'f')
+          return 1;
+        if (ch >= 'a' && ch <= 'z')
+          return 2;
+        if (ch == '.')
+          return 3;
+        if (ch >= '0' && ch <= '9')
+          return 4;
+        if (ch == '-')
+          return 5;
+        if (ch == '\n')
+          return 6;
+        if (ch == ' ')
+          return 7;
+        else
+          return 8;
+      }
+      static String ffst(int val) {
+        switch(val){
+            case 2:
+                return "ID";
+            case 3:
+                return "IF";
+            case 4:
+                return "ID";
+            case 5:
+                return "error";
+            case 6:
+                return "REAL";
+            case 7:
+                return "NUM";
+            case 8:
+                return "REAL";
+            case 9:
+                return "error";
+            case 11:
+                return "white space";
+            case 13:
+                return "error";
+            case 12:
+                return "white space";
+            default:
+              return "Not in final state";
         }
-        else{
-            return "Invalid";
-        }
-	}
-	public void nextChar(){
-		this.curInputChar = inp.charAt(this.curInputPos);
-	}
-
-	public void rollback(){
-        this.curInputPos -=1;
-	}
-	
-	/**private class intPair{
-		int state;
-		int inputPos;
-		intPair(int state, int inputPos){
-			this.state = state;
-			this.inputPos = inputPos;
-		}
-	}*/
+      }
 }

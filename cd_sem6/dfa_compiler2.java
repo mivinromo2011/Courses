@@ -1,4 +1,5 @@
-
+// V.V.Mithun Rosinth
+// CB.EN.U4CSE18439
 import java.util.*;
 import java.io.*;
 
@@ -72,7 +73,6 @@ public class dfa_compiler2 {
                   System.out.println("\n");
             }   
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         
