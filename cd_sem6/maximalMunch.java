@@ -20,10 +20,10 @@ public class maximalMunch {
                 Index_Stack.push("Bad");
                 int n = str.length();
                 int cur_st = 1;
-                int r=13,c=13;
+                int r=12,c=13;
                 int ip_pos=0;
                 Boolean failed[][] = new Boolean[r][c];
-                for (int x=0;i<r ;i++ ) {
+                for (int x=0;x<r ;x++ ) {
                   for (int y=0;y<c ;y++ ) {
                     failed[x][y]=false;
                   }
@@ -92,7 +92,7 @@ public class maximalMunch {
                   }else{
                     System.out.println("The string is valid till:"+cur_st+" State.");
                     System.out.println(Lexeme.elements());
-                    System.out.println("ID:"+ffst(cur_st));
+                    System.out.println("Customer Type:"+ffst(Lexeme.get(5)));
                   }
                   System.out.println("\n");
             }   
@@ -102,55 +102,43 @@ public class maximalMunch {
         
     }
     static Boolean Check_FS(int a){
-        if(a==2||a==3||a==4||a==5||a==6||a==7||a==8||a==9||a==11||a==13||a==12) return true;
+        if(a==10) return true;
         else return false;
     }
     static int get_edges(char ch) {
-        if (ch == 'i')
-          return 0;
-        if (ch == 'f')
-          return 1;
-        if (ch >= 'a' && ch <= 'z')
-          return 2;
-        if (ch == '.')
-          return 3;
         if (ch >= '0' && ch <= '9')
+		  return 1;
+		if (ch == 'P')
+          return 2;
+        if (ch == 'C')
+          return 3;
+        if (ch == 'H')
           return 4;
-        if (ch == '-')
-          return 5;
-        if (ch == '\n')
-          return 6;
-        if (ch == ' ')
-          return 7;
+        if (ch == 'F')
+		  return 5;
+		if (ch == 'A')
+		  return 6;
+		if (ch == 'T')
+		  return 7;
+		if (ch == 'B')
+		  return 8;
+		if (ch == 'L')
+		  return 9;
+		if (ch == 'J')
+		  return 10;
+		if (ch == 'G')
+		  return 11;
+		if (ch >= 'A' && ch <= 'Z')
+          return 12;
         else
-          return 8;
+          return 13;
       }
-      static String ffst(int val) {
-        switch(val){
-            case 2:
-                return "ID";
-            case 3:
-                return "IF";
-            case 4:
-                return "ID";
-            case 5:
-                return "error";
-            case 6:
-                return "REAL";
-            case 7:
-                return "NUM";
-            case 8:
-                return "REAL";
-            case 9:
-                return "error";
-            case 11:
-                return "white space";
-            case 13:
-                return "error";
-            case 12:
-                return "white space";
-            default:
-              return "Not in final state";
-        }
+      static String ffst(char val) {
+		if(val=='P'){
+			return "Personal";
+		}
+		else{
+			return "Firm/Government";
+		}
       }
 }
